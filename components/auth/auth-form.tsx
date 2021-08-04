@@ -16,7 +16,7 @@ function AuthForm() {
 
         const user: IUser = {
             email: inputEmailRef.current?.value!,
-            password: inputEmailRef.current?.value!
+            password: inputPasswordRef.current?.value!
         }
 
         if (isInValidUserData(user)) {
