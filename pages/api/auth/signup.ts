@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { singupUserPost } from "../../../controllers/userAuth/singup";
+import { singupUserPost } from "../../../controllers/auth/singup";
 import { MethodRequestEnum } from '../../../models/mongoDB/MethodRequestEnum';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
