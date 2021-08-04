@@ -25,6 +25,12 @@
     margin-bottom: 0.5rem;
 }
 
+.errors {
+    color: hsl(0, 100%, 65%);
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
 .control input {
     font: inherit;
     background-color: #f1e1fc;
