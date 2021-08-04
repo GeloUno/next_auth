@@ -4,6 +4,8 @@ import { IUser } from '../../models/user/IUser';
 import { isInValidUserData } from '../../controllers/mongoDB/isInValidUserData';
 import { EndPointsUser_Enum, fetcherAuthUser } from "./fecher";
 
+import { signIn } from 'next-auth/client'
+
 function AuthForm() {
     const [isLogin, setIsLogin] = useState<boolean>(true)
     const [isInvalidData, setIsInvalidData] = useState<boolean>(false)
@@ -11,7 +13,7 @@ function AuthForm() {
     const inputEmailRef = useRef<HTMLInputElement | null>(null)
     const inputPasswordRef = useRef<HTMLInputElement | null>(null)
 
-    function submitHandler(event: React.FormEvent) {
+    async function submitHandler(event: React.FormEvent) {
         event.preventDefault()
 
         const user: IUser = {
@@ -25,9 +27,16 @@ function AuthForm() {
         }
 
         if (isLogin) {
-            fetcherAuthUser(EndPointsUser_Enum.SIGNIN, user)
-                .then(res => console.log(`res`, res))
-                .catch(error => console.log(`error`, error))
+            const result = await signIn('credentials', {
+                redirect: false,
+                email: user.email,
+                password: user.password
+            })
+
+            console.log(`result`, result)
+            // fetcherAuthUser(EndPointsUser_Enum.SIGNIN, user)
+            //     .then(res => console.log(`res`, res))
+            //     .catch(error => console.log(`error`, error))
         } else {
             fetcherAuthUser(EndPointsUser_Enum.SIGNUP, user)
                 .then(res => console.log(`result`, res))
