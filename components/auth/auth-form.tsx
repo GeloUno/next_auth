@@ -1,10 +1,11 @@
 import { useRef, useState } from "react";
 import classes from './auth-form.module.css'
 import { IUser } from '../../models/user/IUser';
-import { isInValidUserData } from '../../controllers/mongoDB/isInValidUserData';
-import { EndPointsUser_Enum, fetcherAuthUser } from "./fecher";
-
+import { isInValidUserData } from '../../controllers/validators/isInValid';
+import { EndPointsUser_Enum, fetcherAuthUser } from "../../controllers/fetcher/fecher";
+import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/client'
+
 
 function AuthForm() {
     const [isLogin, setIsLogin] = useState<boolean>(true)
@@ -12,6 +13,8 @@ function AuthForm() {
 
     const inputEmailRef = useRef<HTMLInputElement | null>(null)
     const inputPasswordRef = useRef<HTMLInputElement | null>(null)
+
+    const router = useRouter()
 
     async function submitHandler(event: React.FormEvent) {
         event.preventDefault()
@@ -26,12 +29,17 @@ function AuthForm() {
             return
         }
 
+
         if (isLogin) {
             const result = await signIn('credentials', {
                 redirect: false,
                 email: user.email,
                 password: user.password
             })
+
+            if (!result?.error) {
+                router.replace("/profile")
+            }
 
             console.log(`result`, result)
             // fetcherAuthUser(EndPointsUser_Enum.SIGNIN, user)
