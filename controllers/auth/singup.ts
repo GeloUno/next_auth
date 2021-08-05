@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { CollectionMongoDB_Enum } from '../../models/mongoDB/CollectionMongoDB';
 import { connectClientToMongoDB } from '../mongoDB/mongoDB';
 import { IUser } from '../../models/user/IUser';
-import { isInValidUserData } from '../mongoDB/isInValidUserData';
+import { isInValidUserData } from '../validators/isInValid';
 import { hashUserPassword } from '../bcrypt/bcryptUser';
 
 
@@ -35,6 +35,6 @@ export async function singupUserPost(req: NextApiRequest, res: NextApiResponse) 
 
     } catch (error) {
 
-        return res.status(500).json({ message: error.message || "Error connect to data base" })
+        return res.status(500).json({ message: error.message || "Error connect to database" })
     }
 }
