@@ -1,10 +1,14 @@
 import classes from './profile-form.module.css'
 import { useRef, useState } from 'react';
-import { fetcherChangeUserPassword, IUserChangePassword } from '../../controllers/fetcher/fecher';
+
 import { isInValidPasswords } from '../../controllers/validators/isInValid';
+import { IUserChangePassword } from '../../controllers/fetcher/fecher';
 
+interface ProfileFormProps {
+    fetcherChangeUserPassword({ newPassword, oldPassword }: IUserChangePassword): Promise<any>
+}
 
-function ProfileForm() {
+function ProfileForm({ fetcherChangeUserPassword }: ProfileFormProps) {
 
     const newInputPasswordRef = useRef<HTMLInputElement | null>(null)
     const oldInputPasswordRef = useRef<HTMLInputElement | null>(null)
